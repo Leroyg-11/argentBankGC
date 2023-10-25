@@ -5,7 +5,7 @@ import pages from "vite-plugin-pages";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/",
+  base: "https://leroyg-11.github.io/",
   plugins: [
     react(),
     pages({
