@@ -1,0 +1,55 @@
+.account-header {
+  background-color: #fff;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
+  a {
+    align-items: center;
+    text-decoration: none;
+    .fa {
+      margin-right: 5px;
+    }
+  }
+}
+
+.main-nav-logo-image {
+  max-width: 100%;
+  width: 200px;
+}
+
+.nav-logged-container {
+  text-decoration: none;
+  margin-right: 0.5rem;
+  display: flex;
+  font-weight: bold;
+  color: #2c3e50;
+  .main-nav-item {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    color: #2c3e50;
+    margin-right: 5px;
+    p {
+      margin-right: 5px;
+    }
+  }
+}
+
+.main-nav-item:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid #ccc;
+  padding: 2rem 0 1.5rem;
+}
+
+.footer-text {
+  margin: 0;
+  padding: 0;
+}

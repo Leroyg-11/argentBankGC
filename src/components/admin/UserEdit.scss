@@ -1,0 +1,41 @@
+.user-edit {
+  color: black;
+  .sign-in-content {
+    margin: 0 auto;
+    border: solid 10px rgb(138, 124, 124);
+    padding-top: 1rem;
+  }
+  h1 {
+    margin-top: 0;
+  }
+  i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .button-container {
+    display: flex;
+    gap: 1rem;
+
+    .save-button,
+    .cancel-button {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      border-color: #00bc77;
+      background-color: #00bc77;
+      color: #fff;
+    }
+  }
+
+  .edit-input {
+    margin-bottom: 10px;
+    .label {
+      display: inline-block;
+      width: 150px;
+      text-align: right;
+    }
+  }
+}
