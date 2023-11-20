@@ -1,7 +1,7 @@
 import React from "react";
-import chat from "../../assets/Index/icon-chat.png";
-import money from "../../assets/Index/icon-money.png";
-import security from "../../assets/Index/icon-security.png";
+import chat from "../../assets/Index/icon-chat.webp";
+import money from "../../assets/Index/icon-money.webp";
+import security from "../../assets/Index/icon-security.webp";
 import "./Public.scss";
 
 const Features = () => {
