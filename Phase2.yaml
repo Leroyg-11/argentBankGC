@@ -1,0 +1,416 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/login:
+    post:
+      tags:
+        - User Module
+      summary: Login
+      description: API for Login
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Login Successfully
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/signup:
+    post:
+      tags:
+        - User Module
+      summary: Signup
+      description: API for Signup
+      parameters:
+        - in: body
+          name: body
+          description: Signup Payload
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Signup Successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching a user profile
+      #produces:
+       # - application/json
+      responses:
+        '200':
+          description: User profile retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a user profile
+      parameters:
+        - in: body
+          name: body
+          description: Update user profile attributes
+          required: true
+          schema:
+            $ref: '#/definitions/UserProfile'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User profile retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+
+  /user/profile/account/{accountId}:
+    post:
+      security:
+          - Bearer: []
+      tags:
+          - Transactions
+      summary: Transaction of current mouth 
+      description: Fetch data of an Id account 
+        #produces:
+         # - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: Account ID
+          required: true
+          type: string
+        - name: Dates
+          in: body
+          description: Start and end of transactions to dispaly
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionsDate'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ResponseTransactions'
+        '400':
+          description: Invalid values
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          
+  /user/profile/account/{accountId}/transaction/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction
+      summary: Transaction details
+      description: Get transaction details
+      parameters:
+          - name: accountId
+            in: path
+            description: Account ID
+            required: true
+            type: string
+          - name: transactionId
+            in: path
+            description: Transaction ID
+            required: true
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ResponseDetails'
+        '400':
+          description: Invalid values
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+
+    put: 
+      security:
+        - Bearer: []
+      tags:
+        - Transaction
+      summary: Update Transaction's details
+      description: Get transaction details  
+      parameters:
+          - name: accountId
+            in: path
+            description: Account ID
+            required: true
+            type: string
+          - name: transactionId
+            in: path
+            description: Transaction ID
+            required: true
+            type: string
+          - name: Details
+            in: body
+            description: Update transaction's category
+            required: true
+            schema:
+              $ref: '#/definitions/EditableDetails'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ResponseDetails'
+        '400':
+          description: Invalid values
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /user/profile/account/transcation/categories/:
+    get: 
+      security:
+        - Bearer: []
+      tags:
+          - Categories
+      summary: Transaction categories
+      description: Get transactions categories
+      parameters: 
+        - name: Autorization
+          in: header
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ResponseCategories'
+        '400':
+          description: Invalid values
+        '500':
+          description: Internal Server Error
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  User:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+      firstName:
+        type: string
+        description: user first name
+      lastName:
+        type: string
+        description: user last name
+      userName:
+        type: string
+        description: user public name
+  Login:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  UserProfile:
+    type: object
+    properties:
+      userName:
+        type: string
+
+
+  ResponseTransactions:
+    type: object
+    properties:
+      status:
+        type: integer
+        example: 200
+      message:
+        type: string
+        format: string
+        example: transactions successfully recovered
+      body:
+        type: array
+        items:
+          $ref: '#/definitions/Informations'
+          
+  TransactionsDate:
+    type: object
+    properties:
+      from:
+        type: string
+        format: date
+        description: since .. (one month ago)
+        example: '2023-09-19'
+      to:
+        type: string
+        format: date
+        description: up to .. (today)
+        example: '2023-10-19'
+  
+  ResponseDetails:
+    type: object
+    properties:
+      status:
+        type: integer
+        example: 200
+      message:
+        type: string
+        format: string
+        example: details successfully recovered
+      schema:
+        $ref: '#/definitions/Details'
+  
+  Details:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: transaction ID
+        example: 650d8f2402a5e529d968fe44
+      type:
+        type: string
+        description: transaction type
+        example: Electronic
+      category:
+        type: string
+        description: transaction category
+        example: Equipment
+      notes:
+        type: string
+        description: transaction notes
+        example: >-
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum cum aspernatur laborum...
+          
+  EditableDetails:
+    type: object
+    properties:
+      category:
+        type: string
+        description: transaction category
+      notes:
+        type: string
+        description: transaction notes
+        
+  ResponseCategories:
+    type: object
+    properties:
+      status:
+        type: integer
+        example: 200
+      message:
+        type: string
+        format: string
+        example: categories successfully recovered
+      schema:
+        $ref: '#/definitions/Categories'
+        
+  Categories:
+    type: array
+    items:
+      $ref: '#/definitions/Category'
+  
+  Category:
+    type: string
+    enum:
+      - Food
+      - Clothes
+      - Charges
+      - Fuel
+      - Supplies
+      - Equipment
+      - Other
+        
+  Informations:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: transaction ID
+        example: 650d8f2402a5e529d968fe44
+      date:
+        type: string
+        format: date-time
+        description: transaction date
+        example: '2023-09-19T12:57:19.005Z'
+      description:
+        type: string
+        description: transaction description
+        example: Sunflower Bakery
+      amount:
+        type: integer
+        description: transaction amount
+        example: 15
+      balance:
+        type: integer
+        description: account balance after transaction
+        example: 3504.79
+
+  
+  
+ 
+

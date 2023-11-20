@@ -18,6 +18,7 @@ const Header = () => {
   };
 
   const getToken = useSelector((state) => state.user.user);
+  console.log("gettoken", getToken);
 
   const profileUserData = useSelector((state) => state.profile.user);
 
@@ -44,12 +45,10 @@ const Header = () => {
             <p>{profileUserData ? profileUserData.userName : ""}</p>
           </Link>
 
-          {getToken === null ? (
+          {getToken === null ||
+          getToken === "Request failed with status code 400" ? (
             ((
-              <Link
-                className="nav-info-user main-nav-item"
-                to="/admin/dashboard/"
-              >
+              <Link className="nav-info-user main-nav-item" to="/">
                 <i className="fa fa-user-circle"></i>
                 <p>{profileUserData ? profileUserData.userName : ""}</p>
               </Link>

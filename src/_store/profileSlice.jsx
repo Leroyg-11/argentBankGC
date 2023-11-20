@@ -37,7 +37,7 @@ const profileSlice = createSlice({
       })
       .addCase(profileUser.rejected, (state, action) => {
         state.user = null;
-        console.log(action.error.message);
+        // console.log(action.error.message);
       });
   },
 });
