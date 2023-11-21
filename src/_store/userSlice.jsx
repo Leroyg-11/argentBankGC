@@ -31,7 +31,7 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.user = action.error.message;
-        console.log(action.error.message);
+        // console.log(action.error.message);
       });
   },
 });

@@ -24,8 +24,8 @@ const Login = () => {
     dispatch(loginUser(userCredential)).then((result) => {
       if (result.payload) {
         navigate("/admin/dashboard/");
-        const token = result.payload;
-        dispatch(profileUser(token)).then((res) => {
+        const getToken = result.payload;
+        dispatch(profileUser(getToken)).then((res) => {
           if (res.payload) {
             const dataprof = res.payload;
             setProfileData(dataprof);
