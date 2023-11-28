@@ -19,8 +19,8 @@ const UserEdit = ({ setIsUserEditVisible }) => {
     const inputValue = e.target.value;
 
     if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
-      setNewUserName(inputValue);
       setUsernameLength(inputValue.length);
+      setNewUserName(inputValue);
     }
   };
 
